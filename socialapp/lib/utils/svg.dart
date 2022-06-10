@@ -13,6 +13,7 @@ class SvgIcon {
   static const String comment_icon = 'assets/icons/comment.svg';
   static const String like_icon = 'assets/icons/like.svg';
   static const String share_icon = 'assets/icons/share.svg';
+  static const String clockIcon = 'assets/icons/clock.svg';
 }
 
 class Picture {
