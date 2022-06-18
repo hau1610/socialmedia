@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:socialapp/page/HomePage/controller.dart';
 import 'package:socialapp/page/Menu/index.dart';
 import 'package:socialapp/page/Notification/index.dart';
+import 'package:socialapp/page/Profile/index.dart';
 import 'package:socialapp/utils/svg.dart';
 
 class HomePage extends StatelessWidget {
@@ -115,11 +116,14 @@ class HomePage extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Image(
-                          height: 40,
-                          width: 40,
-                          image: AssetImage(Picture.logo_Aplus),
-                          fit: BoxFit.cover,
+                        GestureDetector(
+                          onTap: () => Get.to(() => Profile()),
+                          child: Image(
+                            height: 40,
+                            width: 40,
+                            image: AssetImage(Picture.logo_Aplus),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                         const SizedBox(width: 20),
                         Expanded(

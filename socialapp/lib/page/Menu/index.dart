@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:socialapp/page/Profile/index.dart';
 import 'package:socialapp/utils/svg.dart';
 
 class Menu extends StatelessWidget {
@@ -22,33 +23,36 @@ class Menu extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Image(
-                  height: 40,
-                  width: 40,
-                  image: AssetImage(Picture.logo_Aplus),
-                  fit: BoxFit.cover,
-                ),
-                const SizedBox(width: 20),
-                Expanded(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Dao Vinh Linh',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                    ),
-                    Text('Xem trang cá nhân của bạn',
+            GestureDetector(
+              onTap: () => Get.to(() => Profile()),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Image(
+                    height: 40,
+                    width: 40,
+                    image: AssetImage(Picture.logo_Aplus),
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'Dao Vinh Linh',
                         style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                            color: Color.fromRGBO(157, 157, 157, 1)))
-                  ],
-                )),
-              ],
+                            fontSize: 18, fontWeight: FontWeight.w600),
+                      ),
+                      Text('Xem trang cá nhân của bạn',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: Color.fromRGBO(157, 157, 157, 1)))
+                    ],
+                  )),
+                ],
+              ),
             ),
             const SizedBox(height: 15),
             Container(

@@ -20,8 +20,13 @@ class SvgIcon {
   static const String chatIcon = 'assets/icons/chat.svg';
   static const String settingIcon = 'assets/icons/setting.svg';
   static const String logoutIcon = 'assets/icons/logout.svg';
+  static const String edit = 'assets/icons/edit.svg';
+  static const String liveIcon = 'assets/icons/live.svg';
+  static const String studyIcon = 'assets/icons/study.svg';
+  static const String homeIcon = 'assets/icons/home.svg';
 }
 
 class Picture {
   static const String logo_Aplus = 'assets/images/logo_Aplus.png';
+  static const String city = 'assets/images/city.jpg';
 }
