@@ -2,10 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:socialapp/page/HomePage/controller.dart';
+import 'package:socialapp/page/Menu/index.dart';
 import 'package:socialapp/page/Notification/index.dart';
 import 'package:socialapp/utils/svg.dart';
 
 class HomePage extends StatelessWidget {
+  final HomePageController h = Get.put(HomePageController());
+  HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +61,23 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => Menu());
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    height: 35,
+                    width: 35,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black.withOpacity(0.05)),
+                    child: const Icon(
+                      Icons.menu_rounded,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
               ],
             )
           ],

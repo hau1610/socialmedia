@@ -4,6 +4,7 @@ import 'package:socialapp/get_routes.dart';
 import 'package:socialapp/global_controller.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const SocialApp());
 }
 

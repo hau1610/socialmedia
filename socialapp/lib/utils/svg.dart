@@ -14,6 +14,12 @@ class SvgIcon {
   static const String like_icon = 'assets/icons/like.svg';
   static const String share_icon = 'assets/icons/share.svg';
   static const String clockIcon = 'assets/icons/clock.svg';
+  static const String feedIcon = 'assets/icons/feed.svg';
+  static const String friendIcon = 'assets/icons/friends.svg';
+  static const String photoIcon = 'assets/icons/photo.svg';
+  static const String chatIcon = 'assets/icons/chat.svg';
+  static const String settingIcon = 'assets/icons/setting.svg';
+  static const String logoutIcon = 'assets/icons/logout.svg';
 }
 
 class Picture {
