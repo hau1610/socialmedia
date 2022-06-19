@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:socialapp/page/FriendList/index.dart';
 import 'package:socialapp/utils/svg.dart';
 
 class Profile extends StatelessWidget {
@@ -16,15 +17,15 @@ class Profile extends StatelessWidget {
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20)),
             child: Image(
               height: 200,
               width: Get.width,
-              image: AssetImage(Picture.city),
+              image: const AssetImage(Picture.city),
               fit: BoxFit.cover,
             ),
           ),
@@ -181,21 +182,24 @@ class Profile extends StatelessWidget {
                           ],
                         ))),
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            height: 30,
-            decoration: BoxDecoration(
-                color: Colors.red.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(10)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text('Xem tất cả bạn bè',
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.red))
-              ],
+          GestureDetector(
+            onTap: () => Get.to(FriendList()),
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              height: 30,
+              decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text('Xem tất cả bạn bè',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.red))
+                ],
+              ),
             ),
           ),
           Container(

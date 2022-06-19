@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:socialapp/page/FriendList/index.dart';
 import 'package:socialapp/page/Profile/index.dart';
 import 'package:socialapp/utils/svg.dart';
 
@@ -91,22 +92,25 @@ class Menu extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          SvgIcon.friendIcon,
-                          color: Colors.red,
-                        ),
-                        const SizedBox(height: 8),
-                        const Text('Bạn bè',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600))
-                      ],
+                  GestureDetector(
+                    onTap: () => Get.to(FriendList()),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            SvgIcon.friendIcon,
+                            color: Colors.red,
+                          ),
+                          const SizedBox(height: 8),
+                          const Text('Bạn bè',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600))
+                        ],
+                      ),
                     ),
                   ),
                   Container(

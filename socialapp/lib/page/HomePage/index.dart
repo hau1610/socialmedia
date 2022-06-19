@@ -165,8 +165,9 @@ class HomePage extends StatelessWidget {
                 children: List.generate(
                   4,
                   (index) => Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    margin: const EdgeInsets.only(top: 10, bottom: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: Colors.white,
@@ -176,7 +177,7 @@ class HomePage extends StatelessWidget {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Image(
+                            const Image(
                               height: 40,
                               width: 40,
                               image: AssetImage(Picture.logo_Aplus),
