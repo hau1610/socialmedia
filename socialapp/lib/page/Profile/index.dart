@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:socialapp/page/FriendList/index.dart';
+import 'package:socialapp/page/ImagePage/index.dart';
 import 'package:socialapp/utils/svg.dart';
 
 class Profile extends StatelessWidget {
@@ -293,21 +294,24 @@ class Profile extends StatelessWidget {
                     )),
           ),
           const SizedBox(height: 10),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            height: 30,
-            decoration: BoxDecoration(
-                color: Colors.red.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(10)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text('Xem tất cả ảnh',
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.red))
-              ],
+          GestureDetector(
+            onTap: () => Get.to(() => ImagePage()),
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              height: 30,
+              decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text('Xem tất cả ảnh',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.red))
+                ],
+              ),
             ),
           ),
           Container(

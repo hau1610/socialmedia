@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:socialapp/utils/svg.dart';
 
 class FriendList extends StatelessWidget {
@@ -52,7 +51,7 @@ class FriendList extends StatelessWidget {
             ),
             Expanded(
                 child: ListView(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     children: List.generate(
                         6,
                         (index) => Row(
