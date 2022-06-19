@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:socialapp/page/FriendList/index.dart';
 import 'package:socialapp/page/ImagePage/index.dart';
+import 'package:socialapp/page/MyPost/index.dart';
 import 'package:socialapp/page/Profile/index.dart';
 import 'package:socialapp/utils/svg.dart';
 
@@ -75,22 +76,25 @@ class Menu extends StatelessWidget {
                     mainAxisSpacing: 10,
                     crossAxisCount: 3,
                     children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          SvgIcon.feedIcon,
-                          color: Colors.red,
-                        ),
-                        const SizedBox(height: 8),
-                        const Text('Bài đăng',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600))
-                      ],
+                  GestureDetector(
+                    onTap: () => Get.to(() => MyPost()),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            SvgIcon.feedIcon,
+                            color: Colors.red,
+                          ),
+                          const SizedBox(height: 8),
+                          const Text('Bài đăng',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600))
+                        ],
+                      ),
                     ),
                   ),
                   GestureDetector(
