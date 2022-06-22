@@ -8,6 +8,10 @@ import 'package:socialapp/page/MyPost/index.dart';
 import 'package:socialapp/page/Profile/index.dart';
 import 'package:socialapp/utils/svg.dart';
 
+import '../../commons.dart';
+import '../../get_routes.dart';
+import '../../global.dart';
+
 class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -168,19 +172,32 @@ class Menu extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(SvgIcon.logoutIcon, color: Colors.red),
-                        const SizedBox(height: 8),
-                        const Text('Đăng xuất',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600))
-                      ],
+                  GestureDetector(
+                    onTap: () {
+                      for (var element in KEY.values) {
+                        // if (element != KEY.FIRST_LOGIN_BY_PHONE &&
+                        //     element != KEY.FIRST_OPEN) {
+                        storage.remove(element.toString());
+                        //}
+                      }
+
+                      Get.offAllNamed(Routes.login);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(SvgIcon.logoutIcon,
+                              color: Colors.red),
+                          const SizedBox(height: 8),
+                          const Text('Đăng xuất',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600))
+                        ],
+                      ),
                     ),
                   ),
                 ]))

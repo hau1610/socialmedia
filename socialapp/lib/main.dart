@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socialapp/get_routes.dart';
+import 'package:socialapp/global.dart';
 import 'package:socialapp/global_controller.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  storage = await SharedPreferences.getInstance();
   runApp(const SocialApp());
 }
 
@@ -22,7 +25,7 @@ class SocialApp extends StatelessWidget {
           primarySwatch: Colors.red,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: '/homepage',
-        getPages: AppRoutes.routes);
+        initialRoute: Routes.login,
+        getPages: routes);
   }
 }

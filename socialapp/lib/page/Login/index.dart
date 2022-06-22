@@ -13,7 +13,7 @@ class Login extends StatelessWidget {
   const Login({Key? key, this.isStackPage = false}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    LoginController c = Get.put(LoginController());
+    LoginController c = Get.put(LoginController(context));
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -29,7 +29,7 @@ class Login extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
+                  const Center(
                     child: Image(
                       height: 100,
                       width: 100,
@@ -38,14 +38,14 @@ class Login extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Text('Chào mừng bạn quay trở lại',
+                  const Text('Chào mừng bạn quay trở lại',
                       style: TextStyle(
                         color: Color.fromRGBO(202, 1, 1, 1),
                         fontWeight: FontWeight.w700,
                         fontSize: 18,
                       )),
                   const SizedBox(height: 20),
-                  Text(
+                  const Text(
                     'Đăng nhập để tiếp tục sử dụng A Plus',
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -54,7 +54,12 @@ class Login extends StatelessWidget {
                   ),
                   const SizedBox(height: 40),
                   TextField(
+                    controller: c.username,
+                    onChanged: (value) => c.validateUsername(),
                     decoration: InputDecoration(
+                      errorText: c.usernameErr.value.isEmpty
+                          ? null
+                          : c.usernameErr.value,
                       hintText: 'Nhập số điện thoại',
                       helperText: '',
                       prefixIcon: Padding(
@@ -69,8 +74,13 @@ class Login extends StatelessWidget {
                   Obx(
                     () => TextField(
                       obscureText: !c.showPassword.value,
+                      controller: c.password,
+                      onChanged: (value) => c.validatePassword(),
                       decoration: InputDecoration(
                         hintText: 'Nhập mật khẩu',
+                        errorText: c.passwordErr.value.isEmpty
+                            ? null
+                            : c.passwordErr.value,
                         hintStyle:
                             TextStyle(color: Colors.black.withOpacity(0.2)),
                         helperText: '',
@@ -113,7 +123,7 @@ class Login extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(width: 8),
-                              Text(
+                              const Text(
                                 'Lưu mật khẩu',
                                 style: TextStyle(
                                     color: Color.fromRGBO(33, 71, 48, 1),
@@ -126,7 +136,7 @@ class Login extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {},
-                        child: Text(
+                        child: const Text(
                           'Quên mật khẩu?',
                           style: TextStyle(
                               fontSize: 12,
@@ -140,7 +150,7 @@ class Login extends StatelessWidget {
                   SizedBox(
                     height: 54,
                     child: TextButton(
-                      onPressed: null,
+                      onPressed: c.login,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
@@ -170,7 +180,7 @@ class Login extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   const SizedBox(height: 30),
-                  Center(
+                  const Center(
                     child: Text(
                       'Hoặc đăng nhập với',
                       style: TextStyle(
@@ -225,7 +235,7 @@ class Login extends StatelessWidget {
                   const SizedBox(height: 30),
                   Center(
                     child: Text.rich(TextSpan(children: <TextSpan>[
-                      TextSpan(
+                      const TextSpan(
                           text: 'Bạn chưa là thành viên của MobiAgri? ',
                           style: TextStyle(
                               color: Color.fromRGBO(62, 57, 53, 1),
@@ -238,7 +248,7 @@ class Login extends StatelessWidget {
                             ..onTap = () => isStackPage
                                 ? Get.back()
                                 : Get.to(() => Register(isStackPage: true)),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.red,
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
