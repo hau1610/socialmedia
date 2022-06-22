@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:socialapp/model/user_info.dart';
@@ -45,8 +47,12 @@ class LoginController extends GetxController with LoadingOverlay {
 
       if (loginData != null && loginData.sId != null) {
         storage.setString(KEY.idUser.toString(), loginData.sId!);
-        Get.offAllNamed(Routes.homepage);
+
         storage.setString(KEY.password.toString(), password.text);
+        storage.setString(
+            KEY.loginData.toString(), json.encode(loginData.toJson()));
+        Get.offAllNamed(Routes.homepage);
+
         if (savePassword.value) {
           storage.setString(KEY.saveAccount.toString(), username.text.trim());
         } else {
