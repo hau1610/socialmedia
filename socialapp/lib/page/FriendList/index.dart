@@ -1,11 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:socialapp/page/FriendList/controller.dart';
 import 'package:socialapp/utils/svg.dart';
 
 class FriendList extends StatelessWidget {
+  const FriendList({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    FriendListController c = Get.put(FriendListController());
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -42,18 +48,19 @@ class FriendList extends StatelessWidget {
                     )),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text(
-                '6 người bạn',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-              ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Obx(() => Text(
+                    '${c.friendsList.value.length} người bạn',
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w700),
+                  )),
             ),
-            Expanded(
+            Obx(() => Expanded(
                 child: ListView(
                     padding: const EdgeInsets.all(10),
                     children: List.generate(
-                        6,
+                        c.friendsList.value.length,
                         (index) => Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -65,27 +72,16 @@ class FriendList extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 20),
                                 Expanded(
-                                    child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      'Dao Vinh Linh',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    Text('1 bạn chung',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 15,
-                                            color: Color.fromRGBO(
-                                                157, 157, 157, 1)))
-                                  ],
+                                    child: Text(
+                                  '${c.friendsList.value[index].username}',
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600),
                                 )),
                                 SvgPicture.asset(SvgIcon.option_icon,
                                     height: 25, width: 25)
                               ],
-                            )))),
+                            ))))),
           ],
         ));
   }
