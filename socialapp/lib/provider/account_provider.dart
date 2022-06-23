@@ -12,7 +12,7 @@ class AccountProvider extends GetConnect {
       'password': password,
     }.json;
     final Response data =
-        await post('http://10.130.175.154:8800/api/auth/login', params);
+        await post('http://192.168.1.117:8800/api/auth/login', params);
     if (data.statusCode == 200) {
       return data.body != null ? UserInfo.fromJson(data.body) : UserInfo();
     } else {
