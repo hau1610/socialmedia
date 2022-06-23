@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,8 +15,12 @@ import '../../get_routes.dart';
 import '../../global.dart';
 
 class Menu extends StatelessWidget {
+  const Menu({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic> userInfo =
+        json.decode(storage.getString(KEY.loginData.toString())!);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -31,7 +37,7 @@ class Menu extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GestureDetector(
-              onTap: () => Get.to(() => Profile()),
+              onTap: () => Get.to(() => const Profile()),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -45,13 +51,13 @@ class Menu extends StatelessWidget {
                   Expanded(
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
-                        'Dao Vinh Linh',
-                        style: TextStyle(
+                        userInfo['username'],
+                        style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w600),
                       ),
-                      Text('Xem trang cá nhân của bạn',
+                      const Text('Xem trang cá nhân của bạn',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,

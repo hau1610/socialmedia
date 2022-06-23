@@ -45,8 +45,8 @@ class LoginController extends GetxController with LoadingOverlay {
       final UserInfo? loginData = await load<UserInfo?>(
           accountProvider.login(username.text.trim(), password.text.trim()));
 
-      if (loginData != null && loginData.sId != null) {
-        storage.setString(KEY.idUser.toString(), loginData.sId!);
+      if (loginData != null && loginData.id != null) {
+        storage.setString(KEY.idUser.toString(), loginData.id!);
 
         storage.setString(KEY.password.toString(), password.text);
         storage.setString(

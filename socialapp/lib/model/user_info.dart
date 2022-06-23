@@ -1,5 +1,5 @@
 class UserInfo {
-  String? sId;
+  String? id;
   String? username;
   String? email;
   String? password;
@@ -10,9 +10,12 @@ class UserInfo {
   List<String>? friends;
   String? createdAt;
   String? updatedAt;
+  int? iV;
+  String? city;
+  String? from;
 
   UserInfo(
-      {this.sId,
+      {this.id,
       this.username,
       this.email,
       this.password,
@@ -22,25 +25,32 @@ class UserInfo {
       this.followings,
       this.friends,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      this.iV,
+      this.city,
+      this.from});
 
   UserInfo.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
+    id = json['_id'];
     username = json['username'];
     email = json['email'];
     password = json['password'];
     avatar = json['avatar'];
     background = json['background'];
     followers = json['followers'].cast<String>();
+
     followings = json['followings'].cast<String>();
     friends = json['friends'].cast<String>();
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    iV = json['__v'];
+    city = json['city'];
+    from = json['from'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = sId;
+    data['_id'] = id;
     data['username'] = username;
     data['email'] = email;
     data['password'] = password;
@@ -51,6 +61,9 @@ class UserInfo {
     data['friends'] = friends;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
+    data['city'] = city;
+    data['from'] = from;
     return data;
   }
 }

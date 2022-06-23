@@ -11,8 +11,7 @@ class AccountProvider extends GetConnect {
       'email': username,
       'password': password,
     }.json;
-    final Response data =
-        await post('http://192.168.1.117:8800/api/auth/login', params);
+    final Response data = await post('$apiURL/auth/login', params);
     if (data.statusCode == 200) {
       return data.body != null ? UserInfo.fromJson(data.body) : UserInfo();
     } else {

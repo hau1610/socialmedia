@@ -1,20 +1,30 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:socialapp/page/FriendList/index.dart';
 import 'package:socialapp/page/ImagePage/index.dart';
+import 'package:socialapp/page/Profile/controller.dart';
 import 'package:socialapp/utils/svg.dart';
 
+import '../../commons.dart';
+import '../../global.dart';
+
 class Profile extends StatelessWidget {
+  const Profile({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final ProfileController c = Get.put(ProfileController());
+    final Map<String, dynamic> userInfo =
+        json.decode(storage.getString(KEY.loginData.toString())!);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          'Đào Vĩnh Linh',
-          style: TextStyle(),
+        title: Text(
+          userInfo['username'],
         ),
       ),
       body: ListView(
@@ -43,10 +53,10 @@ class Profile extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          const Center(
+          Center(
             child: Text(
-              'Đào Vĩnh Linh',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              userInfo['username'],
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(height: 10),
@@ -84,8 +94,8 @@ class Profile extends StatelessWidget {
                 height: 20,
               ),
               const SizedBox(width: 10),
-              const Text('Sống tại Hà Nội',
-                  style: TextStyle(
+              Text('Sống tại ${userInfo['city']}',
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ))
@@ -96,8 +106,8 @@ class Profile extends StatelessWidget {
             children: [
               SvgPicture.asset(SvgIcon.liveIcon, width: 20, height: 20),
               const SizedBox(width: 10),
-              const Text('Đến từ Hà Nội',
-                  style: TextStyle(
+              Text('Đến từ ${userInfo['from']}',
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ))
@@ -159,32 +169,33 @@ class Profile extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          SizedBox(
-            height: 250,
-            child: GridView.count(
-                primary: false,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 3,
-                children: List.generate(
-                    6,
-                    (index) => Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Expanded(
-                                child: Image(
-                                    image: AssetImage(Picture.logo_Aplus))),
-                            SizedBox(height: 3),
-                            Text('Đào Vĩnh Linhh',
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w600))
-                          ],
-                        ))),
-          ),
+          Obx(() => SizedBox(
+                height: 250,
+                child: GridView.count(
+                    primary: false,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 3,
+                    children: List.generate(
+                        c.friendsList.value.length,
+                        (index) => Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Expanded(
+                                    child: Image(
+                                        image: AssetImage(Picture.logo_Aplus))),
+                                const SizedBox(height: 3),
+                                Text(c.friendsList.value[index].username ?? '',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600))
+                              ],
+                            ))),
+              )),
           GestureDetector(
-            onTap: () => Get.to(FriendList()),
+            onTap: () => Get.to(const FriendList()),
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 10),
               height: 30,
