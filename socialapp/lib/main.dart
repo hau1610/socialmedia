@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:socialapp/commons.dart';
 import 'package:socialapp/get_routes.dart';
 import 'package:socialapp/global.dart';
 import 'package:socialapp/global_controller.dart';
@@ -8,6 +9,11 @@ import 'package:socialapp/global_controller.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   storage = await SharedPreferences.getInstance();
+  final String? userData = storage.getString(KEY.loginData.toString());
+  if (userData != null) {
+    isLoggedIn = true;
+  }
+
   runApp(const SocialApp());
 }
 
@@ -25,7 +31,7 @@ class SocialApp extends StatelessWidget {
           primarySwatch: Colors.red,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: Routes.login,
+        initialRoute: isLoggedIn ? Routes.homepage : Routes.login,
         getPages: routes);
   }
 }
