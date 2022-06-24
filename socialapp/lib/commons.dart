@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:intl/intl.dart';
 
-const String apiURL = 'http://localhost:8800/api';
+const String apiURL = 'http://192.168.1.5:8800/api';
+
 enum KEY { idUser, password, saveAccount, loginData }
+
 enum NOTIFICATION_TYPE { success, error }
 
 extension DataExtention on Response {
@@ -46,4 +49,12 @@ void showNotification(NOTIFICATION_TYPE type,
         notification?.tr ?? '',
         style: const TextStyle(color: Colors.white),
       ));
+}
+
+String formatDateToDisplay(String time, [String? outputFormat]) {
+  if (time == null) {
+    return '';
+  }
+  final output = DateFormat(outputFormat ?? 'dd/MM/yyyy');
+  return output.format(DateTime.parse(time));
 }
