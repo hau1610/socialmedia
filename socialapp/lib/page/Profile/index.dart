@@ -8,6 +8,7 @@ import 'package:socialapp/page/FriendList/index.dart';
 import 'package:socialapp/page/ImagePage/index.dart';
 import 'package:socialapp/page/Profile/controller.dart';
 import 'package:socialapp/utils/svg.dart';
+import 'package:socialapp/widgets/PostContainer/index.dart';
 
 import '../../commons.dart';
 import '../../global.dart';
@@ -170,14 +171,16 @@ class Profile extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Obx(() => SizedBox(
-                height: 250,
+                height: c.friendsList.value.length <= 3 ? 125 : 250,
                 child: GridView.count(
                     primary: false,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     crossAxisCount: 3,
                     children: List.generate(
-                        c.friendsList.value.length,
+                        c.friendsList.value.length <= 6
+                            ? c.friendsList.value.length
+                            : 6,
                         (index) => Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -331,112 +334,13 @@ class Profile extends StatelessWidget {
             width: Get.width,
             height: 15,
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: List.generate(
-              4,
-              (index) => Container(
-                margin: EdgeInsets.only(top: 10, bottom: 10),
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image(
-                          height: 40,
-                          width: 40,
-                          image: AssetImage(Picture.logo_Aplus),
-                          fit: BoxFit.cover,
-                        ),
-                        const SizedBox(width: 20),
-                        Expanded(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Dao Vinh Linh',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
-                            ),
-                            Text('12 April at 09:28 PM',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Color.fromRGBO(157, 157, 157, 1)))
-                          ],
-                        )),
-                        SvgPicture.asset(SvgIcon.option_icon,
-                            height: 25, width: 25)
-                      ],
-                    ),
-                    const SizedBox(height: 17),
-                    Text(
-                      'One of the perks of weeking in an international compony is sharing knowledge with your colleagues.',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Color.fromRGBO(0, 0, 0, 1)),
-                    ),
-                    const SizedBox(height: 20),
-                    Container(
-                      color: Colors.black.withOpacity(0.1),
-                      height: 1,
-                      width: Get.width,
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset(SvgIcon.comment_icon,
-                                height: 15, width: 15),
-                            const SizedBox(width: 7),
-                            Text(
-                              '100 Comments',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(105, 105, 105, 1),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            SvgPicture.asset(SvgIcon.like_icon,
-                                height: 15, width: 15),
-                            const SizedBox(width: 7),
-                            Text(
-                              '100 Likes',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(105, 105, 105, 1),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            SvgPicture.asset(SvgIcon.share_icon,
-                                height: 15, width: 15),
-                            const SizedBox(width: 7),
-                            Text(
-                              '100 Share',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(105, 105, 105, 1),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600),
-                            )
-                          ],
-                        )
-                      ],
-                    )
-                  ],
-                ),
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: List.generate(
+                c.listPost.value.length,
+                (index) => PostContainer(data: c.listPost.value[index]),
               ),
             ),
           )

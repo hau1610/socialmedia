@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:socialapp/commons.dart';
 import 'package:socialapp/page/HomePage/controller.dart';
 import 'package:socialapp/page/Menu/index.dart';
 import 'package:socialapp/page/Notification/index.dart';

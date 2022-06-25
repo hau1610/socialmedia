@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:socialapp/commons.dart';
 import 'package:socialapp/global.dart';
@@ -16,6 +18,23 @@ class PostProvider extends GetConnect {
           : [];
     } else {
       data.log('Get home feed');
+      return [];
+    }
+  }
+
+  Future<List<PostData>> getMyPosts() async {
+    Map<String, dynamic> userInfo =
+        json.decode(storage.getString(KEY.loginData.toString())!);
+
+    final Response data =
+        await get('$apiURL/post/profile/${userInfo['username']}');
+
+    if (data.statusCode == 200) {
+      return data.body != null
+          ? (data.body as List).map((e) => PostData.fromJson(e)).toList()
+          : [];
+    } else {
+      data.log('Get profile feed');
       return [];
     }
   }
