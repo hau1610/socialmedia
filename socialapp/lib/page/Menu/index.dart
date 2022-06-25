@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -41,11 +42,9 @@ class Menu extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Image(
-                    height: 40,
-                    width: 40,
-                    image: AssetImage(Picture.logo_Aplus),
-                    fit: BoxFit.cover,
+                  CachedNetworkImage(
+                    imageUrl: '$apiURL/${userInfo['avatar']}',
+                    fit: BoxFit.contain,
                   ),
                   const SizedBox(width: 20),
                   Expanded(

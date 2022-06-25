@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:socialapp/commons.dart';
 import 'package:socialapp/model/post_data.dart';
 import 'package:socialapp/utils/svg.dart';
-import 'package:socialapp/widgets/PostContainer/controller.dart';
 
 class PostContainer extends StatelessWidget {
   final PostData data;
@@ -12,8 +10,7 @@ class PostContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(data.toString());
-    final PostController c = Get.put(PostController(data.sId));
+    final String dateTime = data.createdAt?.split('T')[0] ?? '';
     return Container(
       margin: const EdgeInsets.only(top: 10, bottom: 10),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -43,7 +40,7 @@ class PostContainer extends StatelessWidget {
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w600),
                   ),
-                  Text(formatDateToDisplay(data.createdAt!),
+                  Text(dateTime,
                       style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Color.fromRGBO(157, 157, 157, 1)))
@@ -76,15 +73,13 @@ class PostContainer extends StatelessWidget {
                 children: [
                   SvgPicture.asset(SvgIcon.comment_icon, height: 15, width: 15),
                   const SizedBox(width: 7),
-                  Obx(
-                    () => Text(
-                      '${c.comments.value.comments?.length ?? 0} comments',
-                      style: const TextStyle(
-                          color: Color.fromRGBO(105, 105, 105, 1),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  )
+                  Text(
+                    '${data.comments?.length ?? 0} comments',
+                    style: const TextStyle(
+                        color: Color.fromRGBO(105, 105, 105, 1),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ],
               ),
               Row(

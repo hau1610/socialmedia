@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:intl/intl.dart';
 
-const String apiURL = 'http://192.168.1.5:8800/api';
+const String apiURL = 'http://192.168.1.17:8800/api';
 
 enum KEY { idUser, password, saveAccount, loginData }
 
@@ -51,10 +51,15 @@ void showNotification(NOTIFICATION_TYPE type,
       ));
 }
 
-String formatDateToDisplay(String time, [String? outputFormat]) {
-  if (time.isNotEmpty) {
-    return '';
-  }
+String formatDateToDisplay(DateTime time, [String? outputFormat]) {
   final output = DateFormat(outputFormat ?? 'dd/MM/yyyy');
-  return output.format(DateTime.parse(time));
+  return output.format(time);
+}
+
+DateTime formatStringToDate(String? time, [String? format]) {
+  if (time == null) {
+    return DateTime.now();
+  }
+  final inputFormat = DateFormat(format ?? 'dd/MM/yyyy');
+  return inputFormat.parse(time);
 }

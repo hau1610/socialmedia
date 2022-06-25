@@ -7,9 +7,11 @@ class HomePageController extends GetxController {
   late final Rx<List<PostData>> listPost;
   late final Rx<CommentData> comments;
   late final PostProvider _postProvider;
+  late final Rx<List<CommentData>> listComment;
 
   @override
   void onInit() {
+    listComment = Rx<List<CommentData>>([]);
     _postProvider = PostProvider();
     listPost = Rx<List<PostData>>([]);
     comments = Rx<CommentData>(CommentData());
@@ -23,4 +25,9 @@ class HomePageController extends GetxController {
       listPost(listPostRes);
     }
   }
+
+  // Future<void> getComment(String id) async {
+  //   final CommentData commentRes = await _postProvider.getComments(id);
+  //   comments(commentRes);
+  // }
 }
