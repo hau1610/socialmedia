@@ -15,14 +15,14 @@ class MyPostController extends GetxController {
     _postProvider = PostProvider();
     listPost = Rx<List<PostData>>([]);
     comments = Rx<CommentData>(CommentData());
-    getPosts();
+    getMyPosts();
     super.onInit();
   }
 
-  Future<void> getPosts() async {
-    final List<PostData> listPostRes = await _postProvider.getPosts();
+  Future<void> getMyPosts() async {
+    final List<PostData> listPostRes = await _postProvider.getMyPosts();
     if (listPostRes.isNotEmpty) {
-      listPost(listPostRes);
+      listPost(listPostRes.reversed.toList());
     }
   }
 }

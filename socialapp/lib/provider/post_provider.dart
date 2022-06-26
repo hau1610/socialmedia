@@ -51,4 +51,19 @@ class PostProvider extends GetConnect {
       return CommentData();
     }
   }
+
+  Future<bool> createPost(
+      {required String userId, required String desc}) async {
+    final Map<String, dynamic> params = {
+      'userId': userId,
+      'desc': desc,
+    }.json;
+    final Response data = await post('$apiURL/post', params);
+    if (data.statusCode == 200) {
+      return data.body != null ? true : false;
+    } else {
+      data.log('createPost');
+      return false;
+    }
+  }
 }

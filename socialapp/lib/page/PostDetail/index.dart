@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:socialapp/model/post_data.dart';
 import 'package:socialapp/utils/svg.dart';
 import 'package:socialapp/widgets/PostContainer/index.dart';
