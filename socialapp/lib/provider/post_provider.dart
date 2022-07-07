@@ -66,4 +66,30 @@ class PostProvider extends GetConnect {
       return false;
     }
   }
+
+  Future<bool> deletePost({required String postId}) async {
+    final Map<String, dynamic> params = {
+      'userId': storage.getString(KEY.idUser.toString()),
+    }.json;
+    final Response data = await post('$apiURL/post/delete/$postId', params);
+    if (data.statusCode == 200) {
+      return data.body != null ? true : false;
+    } else {
+      data.log('deletePost');
+      return false;
+    }
+  }
+
+  Future<bool> likePost({required String postId}) async {
+    final Map<String, dynamic> params = {
+      'userId': storage.getString(KEY.idUser.toString()),
+    }.json;
+    final Response data = await put('$apiURL/post/$postId/like', params);
+    if (data.statusCode == 200) {
+      return data.body != null ? true : false;
+    } else {
+      data.log('likePost');
+      return false;
+    }
+  }
 }

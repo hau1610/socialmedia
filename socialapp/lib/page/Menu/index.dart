@@ -39,13 +39,13 @@ class Menu extends StatelessWidget {
             GestureDetector(
               onTap: () => Get.to(() => const Profile()),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Image(
-                    height: 40,
-                    width: 40,
-                    image: AssetImage(Picture.logo_Aplus),
-                    fit: BoxFit.cover,
+                  Image.network(
+                    '$imageURL/${userInfo['avatar']}',
+                    height: 50,
+                    width: 50,
+                    fit: BoxFit.contain,
                   ),
                   const SizedBox(width: 20),
                   Expanded(

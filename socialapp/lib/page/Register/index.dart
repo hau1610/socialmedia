@@ -28,29 +28,113 @@ class Register extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 50),
                   Text('Đăng ký',
                       style: TextStyle(
                         color: Colors.red,
                         fontWeight: FontWeight.w700,
-                        fontSize: 18,
+                        fontSize: 20,
                       )),
                   const SizedBox(height: 20),
-                  const Text(
-                    'Chỉ dành cho thuê bao Mobifone',
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  const SizedBox(height: 40),
-                  SizedBox(
-                    height: 48,
-                    child: TextField(
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        hintText: 'Nhập số điện thoại',
-                        hintStyle:
-                            TextStyle(color: Color.fromRGBO(227, 227, 227, 1)),
+                  Column(
+                    children: [
+                      Row(
+                        children: const [
+                          Text('Username', style: TextStyle(fontSize: 15)),
+                          Text(
+                            '*',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ],
                       ),
-                    ),
+                      const SizedBox(
+                        height: 48,
+                        child: TextField(
+                          keyboardType: TextInputType.phone,
+                          decoration: InputDecoration(
+                            hintText: 'Nhập tên tài khoản',
+                            hintStyle: TextStyle(
+                                color: Color.fromRGBO(227, 227, 227, 1)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Column(
+                    children: [
+                      Row(
+                        children: const [
+                          Text('Email', style: TextStyle(fontSize: 15)),
+                          Text(
+                            '*',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 48,
+                        child: TextField(
+                          keyboardType: TextInputType.phone,
+                          decoration: InputDecoration(
+                            hintText: 'Nhập email',
+                            hintStyle: TextStyle(
+                                color: Color.fromRGBO(227, 227, 227, 1)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Column(
+                    children: [
+                      Row(
+                        children: const [
+                          Text('Password', style: TextStyle(fontSize: 15)),
+                          Text(
+                            '*',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 48,
+                        child: TextField(
+                          keyboardType: TextInputType.phone,
+                          decoration: InputDecoration(
+                            hintText: 'Nhập mật khẩu',
+                            hintStyle: TextStyle(
+                                color: Color.fromRGBO(227, 227, 227, 1)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Column(
+                    children: [
+                      Row(
+                        children: const [
+                          Text('Confirm Password',
+                              style: TextStyle(fontSize: 15)),
+                          Text(
+                            '*',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 48,
+                        child: TextField(
+                          keyboardType: TextInputType.phone,
+                          decoration: InputDecoration(
+                            hintText: 'Nhập lại mật khẩu',
+                            hintStyle: TextStyle(
+                                color: Color.fromRGBO(227, 227, 227, 1)),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
                   Row(
@@ -91,7 +175,7 @@ class Register extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               Text(
-                                'GỬI MÃ XÁC THỰC',
+                                'ĐĂNG KÝ',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16,
@@ -117,64 +201,10 @@ class Register extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const SizedBox(height: 20),
-                  Center(
-                    child: Text(
-                      'Hoặc đăng nhập với',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color.fromRGBO(62, 57, 53, 1)),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 56,
-                        height: 56,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 2.0,
-                                spreadRadius: 2.0,
-                                offset: Offset(1.0, 1.0),
-                              )
-                            ]),
-                        child: IconButton(
-                            onPressed: null,
-                            icon: SvgPicture.asset(SvgIcon.logo_fb)),
-                      ),
-                      const SizedBox(width: 20),
-                      Container(
-                        width: 56,
-                        height: 56,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 2.0,
-                                spreadRadius: 2.0,
-                                offset: Offset(1.0, 1.0),
-                              )
-                            ]),
-                        child: IconButton(
-                            onPressed: null,
-                            icon: SvgPicture.asset(SvgIcon.logo_gg)),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
                   Center(
                     child: Text.rich(TextSpan(children: <TextSpan>[
                       TextSpan(
-                          text: 'Bạn là thành viên của MobiAgri? ',
+                          text: 'Bạn là thành viên của Aplus? ',
                           style: TextStyle(
                               color: Color.fromRGBO(62, 57, 53, 1),
                               fontWeight: FontWeight.w400,

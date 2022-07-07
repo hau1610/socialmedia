@@ -60,7 +60,7 @@ class Login extends StatelessWidget {
                       errorText: c.usernameErr.value.isEmpty
                           ? null
                           : c.usernameErr.value,
-                      hintText: 'Nhập số điện thoại',
+                      hintText: 'Nhập email',
                       helperText: '',
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(12.0),
@@ -236,7 +236,7 @@ class Login extends StatelessWidget {
                   Center(
                     child: Text.rich(TextSpan(children: <TextSpan>[
                       const TextSpan(
-                          text: 'Bạn chưa là thành viên của MobiAgri? ',
+                          text: 'Bạn chưa là thành viên của Aplus? ',
                           style: TextStyle(
                               color: Color.fromRGBO(62, 57, 53, 1),
                               fontWeight: FontWeight.w400,

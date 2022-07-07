@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:socialapp/page/CreatePost/index.dart';
 import 'package:socialapp/page/FriendList/index.dart';
+import 'package:socialapp/page/HomePage/controller.dart';
 import 'package:socialapp/page/ImagePage/index.dart';
 import 'package:socialapp/page/Profile/controller.dart';
 import 'package:socialapp/utils/svg.dart';
@@ -18,6 +20,7 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HomePageController h = Get.find();
     final ProfileController c = Get.put(ProfileController());
     final Map<String, dynamic> userInfo =
         json.decode(storage.getString(KEY.loginData.toString())!);
@@ -41,15 +44,15 @@ class Profile extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          const Center(
+          Center(
             child: Baseline(
               baseline: 100,
               baselineType: TextBaseline.alphabetic,
-              child: Image(
-                height: 200,
-                width: 200,
-                image: AssetImage(Picture.logo_Aplus),
-                fit: BoxFit.cover,
+              child: Image.network(
+                '$imageURL/${userInfo['avatar']}',
+                height: 160,
+                width: 160,
+                fit: BoxFit.contain,
               ),
             ),
           ),
@@ -228,58 +231,63 @@ class Profile extends StatelessWidget {
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
               )),
-          Container(
-            margin: const EdgeInsets.only(top: 10),
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const Image(
-                      height: 40,
-                      width: 40,
-                      image: AssetImage(Picture.logo_Aplus),
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                        child: Container(
-                      padding: EdgeInsets.only(left: 25, right: 10),
-                      height: 35,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Color.fromRGBO(250, 250, 250, 1)),
-                      child: Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'What’s on your mind?',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(157, 157, 157, 1)),
-                            ),
-                            Row(
-                              children: [
-                                SvgPicture.asset(SvgIcon.insert_photo_icon,
-                                    height: 20, width: 20),
-                                const SizedBox(width: 5),
-                                SvgPicture.asset(SvgIcon.send_icon,
-                                    height: 20, width: 20)
-                              ],
-                            ),
-                          ],
-                        ),
+          GestureDetector(
+            onTap: () {
+              Get.to(() => CreatePost(onCreateSuccess: h.getPosts));
+            },
+            child: Container(
+              margin: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.white,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const Image(
+                        height: 40,
+                        width: 40,
+                        image: AssetImage(Picture.logo_Aplus),
+                        fit: BoxFit.cover,
                       ),
-                    ))
-                  ],
-                )
-              ],
+                      const SizedBox(width: 20),
+                      Expanded(
+                          child: Container(
+                        padding: EdgeInsets.only(left: 25, right: 10),
+                        height: 35,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Color.fromRGBO(250, 250, 250, 1)),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'What’s on your mind?',
+                                style: TextStyle(
+                                    color: Color.fromRGBO(157, 157, 157, 1)),
+                              ),
+                              Row(
+                                children: [
+                                  SvgPicture.asset(SvgIcon.insert_photo_icon,
+                                      height: 20, width: 20),
+                                  const SizedBox(width: 5),
+                                  SvgPicture.asset(SvgIcon.send_icon,
+                                      height: 20, width: 20)
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ))
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
           Container(
@@ -334,16 +342,16 @@ class Profile extends StatelessWidget {
             width: Get.width,
             height: 15,
           ),
-          Container(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: List.generate(
-                c.listPost.value.length,
-                (index) => PostContainer(data: c.listPost.value[index]),
-              ),
-            ),
-          )
+          Obx(() => Container(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(
+                    c.listPost.value.length,
+                    (index) => PostContainer(data: c.listPost.value[index]),
+                  ),
+                ),
+              ))
         ],
       ),
     );

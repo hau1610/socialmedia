@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:intl/intl.dart';
 
-const String apiURL = 'http://192.168.1.21:8800/api';
+const String apiURL = 'http://192.168.1.5:8800/api';
+const String imageURL = 'http://192.168.1.5:8800/images';
 
 enum KEY { idUser, password, saveAccount, loginData }
 

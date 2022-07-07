@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,18 +7,22 @@ import 'package:get/get.dart';
 import 'package:socialapp/page/FriendList/controller.dart';
 import 'package:socialapp/utils/svg.dart';
 
+import '../../commons.dart';
+import '../../global.dart';
+
 class FriendList extends StatelessWidget {
   const FriendList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     FriendListController c = Get.put(FriendListController());
-
+    final Map<String, dynamic> userInfo =
+        json.decode(storage.getString(KEY.loginData.toString())!);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
-            'Đào Vĩnh Linh',
+          title: Text(
+            userInfo['username'],
             style: TextStyle(),
           ),
         ),
