@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -20,6 +23,8 @@ class PostContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic> userInfo =
+        json.decode(storage.getString(KEY.loginData.toString())!);
     HomePageController h = Get.find();
     final String dateTime = data.createdAt?.split('T')[0] ?? '';
     return GetBuilder<HomePageController>(
@@ -40,21 +45,34 @@ class PostContainer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Image(
-                          height: 40,
-                          width: 40,
-                          image: AssetImage(Picture.logo_Aplus),
-                          fit: BoxFit.cover,
-                        ),
+                        GestureDetector(
+                            // onTap: () => Get.to(() => const Profile()),
+                            child: CachedNetworkImage(
+                                imageUrl: '$imageURL/${userInfo['avatar']}',
+                                height: 50,
+                                width: 50,
+                                fit: BoxFit.contain,
+                                placeholder: (ctx, s) => const Image(
+                                      image: AssetImage(Picture.noAvatar),
+                                      height: 50,
+                                      width: 50,
+                                      fit: BoxFit.contain,
+                                    ),
+                                errorWidget: (ctx, s, d) => const Image(
+                                      image: AssetImage(Picture.noAvatar),
+                                      height: 50,
+                                      width: 50,
+                                      fit: BoxFit.contain,
+                                    ))),
                         const SizedBox(width: 20),
                         Expanded(
                             child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              data.userId!,
+                              data.user?.username ?? '',
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600),
                             ),

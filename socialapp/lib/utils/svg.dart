@@ -29,4 +29,5 @@ class SvgIcon {
 class Picture {
   static const String logo_Aplus = 'assets/images/logo_Aplus.png';
   static const String city = 'assets/images/city.jpg';
+  static const String noAvatar = 'assets/images/noAvatar.png';
 }

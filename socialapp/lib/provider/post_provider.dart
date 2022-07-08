@@ -5,12 +5,13 @@ import 'package:socialapp/commons.dart';
 import 'package:socialapp/global.dart';
 import 'package:socialapp/model/comment_data.dart';
 import 'package:socialapp/model/post_data.dart';
+import 'package:socialapp/model/user_info.dart';
 
 class PostProvider extends GetConnect {
   Future<List<PostData>> getPosts() async {
     final String? userId = storage.getString(KEY.idUser.toString());
 
-    final Response data = await get('$apiURL/post/timeline/$userId');
+    final Response data = await get('$POST_API_URL/post/timeline/$userId');
 
     if (data.statusCode == 200) {
       return data.body != null
@@ -22,12 +23,31 @@ class PostProvider extends GetConnect {
     }
   }
 
-  Future<List<PostData>> getMyPosts() async {
-    Map<String, dynamic> userInfo =
-        json.decode(storage.getString(KEY.loginData.toString())!);
+  Future<UserInfo> getUserInfo(String userId) async {
+    if (userId.isEmpty) {
+      userId = storage.getString(KEY.idUser.toString())!;
+    }
+    final Map<String, dynamic> params = {
+      'userId': userId,
+    }.json;
 
-    final Response data =
-        await get('$apiURL/post/profile/${userInfo['username']}');
+    final Response data = await get('$USER_API_URL/user', query: params);
+
+    if (data.statusCode == 200) {
+      return data.body != null ? UserInfo.fromJson(data.body) : UserInfo();
+    } else {
+      data.log('Get user info');
+      return UserInfo();
+    }
+  }
+
+  Future<List<PostData>> getMyPosts(String userName) async {
+    if (userName.isEmpty) {
+      Map<String, dynamic> userInfo =
+          json.decode(storage.getString(KEY.loginData.toString())!);
+      userName = userInfo['username'];
+    }
+    final Response data = await get('$POST_API_URL/post/profile/$userName');
 
     if (data.statusCode == 200) {
       return data.body != null
@@ -40,7 +60,7 @@ class PostProvider extends GetConnect {
   }
 
   Future<CommentData> getComments(String id) async {
-    final Response data = await get('$apiURL/comment/$id');
+    final Response data = await get('$POST_API_URL/comment/$id');
 
     if (data.statusCode == 200) {
       return data.body != null
@@ -58,7 +78,7 @@ class PostProvider extends GetConnect {
       'userId': userId,
       'desc': desc,
     }.json;
-    final Response data = await post('$apiURL/post', params);
+    final Response data = await post('$POST_API_URL/post', params);
     if (data.statusCode == 200) {
       return data.body != null ? true : false;
     } else {
@@ -71,7 +91,8 @@ class PostProvider extends GetConnect {
     final Map<String, dynamic> params = {
       'userId': storage.getString(KEY.idUser.toString()),
     }.json;
-    final Response data = await post('$apiURL/post/delete/$postId', params);
+    final Response data =
+        await post('$POST_API_URL/post/delete/$postId', params);
     if (data.statusCode == 200) {
       return data.body != null ? true : false;
     } else {
@@ -84,7 +105,7 @@ class PostProvider extends GetConnect {
     final Map<String, dynamic> params = {
       'userId': storage.getString(KEY.idUser.toString()),
     }.json;
-    final Response data = await put('$apiURL/post/$postId/like', params);
+    final Response data = await put('$POST_API_URL/post/$postId/like', params);
     if (data.statusCode == 200) {
       return data.body != null ? true : false;
     } else {

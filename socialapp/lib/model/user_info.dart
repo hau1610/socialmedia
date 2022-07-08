@@ -13,6 +13,7 @@ class UserInfo {
   int? iV;
   String? city;
   String? from;
+  String? img;
 
   UserInfo(
       {this.id,
@@ -28,7 +29,8 @@ class UserInfo {
       this.updatedAt,
       this.iV,
       this.city,
-      this.from});
+      this.from,
+      this.img});
 
   UserInfo.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
@@ -46,6 +48,7 @@ class UserInfo {
     iV = json['__v'];
     city = json['city'];
     from = json['from'];
+    img = json['img'];
   }
 
   Map<String, dynamic> toJson() {
@@ -64,6 +67,7 @@ class UserInfo {
     data['__v'] = iV;
     data['city'] = city;
     data['from'] = from;
+    data['img'] = img;
     return data;
   }
 }

@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:socialapp/model/post_data.dart';
 import 'package:socialapp/page/HomePage/controller.dart';
 import 'package:socialapp/widgets/PostContainer/index.dart';
 
-import '../../commons.dart';
-import '../../global.dart';
 
 class MyPost extends StatelessWidget {
   @override

@@ -1,30 +1,28 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:socialapp/page/FriendList/controller.dart';
+import 'package:socialapp/model/friend_data.dart';
+import 'package:socialapp/page/HomePage/controller.dart';
+import 'package:socialapp/page/Profile/index.dart';
 import 'package:socialapp/utils/svg.dart';
 
-import '../../commons.dart';
-import '../../global.dart';
-
 class FriendList extends StatelessWidget {
-  const FriendList({Key? key}) : super(key: key);
+  final List<FriendData> data;
+  const FriendList({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    FriendListController c = Get.put(FriendListController());
-    final Map<String, dynamic> userInfo =
-        json.decode(storage.getString(KEY.loginData.toString())!);
+    HomePageController h = Get.find();
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
-            userInfo['username'],
-            style: TextStyle(),
-          ),
+          leading: GestureDetector(
+              onTap: () {
+                Get.back();
+                Get.to(() => Profile());
+              },
+              child: Icon(Icons.arrow_back, color: Colors.white)),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,38 +54,46 @@ class FriendList extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Obx(() => Text(
-                    '${c.friendsList.value.length} người bạn',
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w700),
-                  )),
+              child: Text(
+                '${data.length} người bạn',
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+              ),
             ),
-            Obx(() => Expanded(
+            Expanded(
                 child: ListView(
                     padding: const EdgeInsets.all(10),
                     children: List.generate(
-                        c.friendsList.value.length,
-                        (index) => Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Image(
-                                  height: 60,
-                                  width: 60,
-                                  image: AssetImage(Picture.logo_Aplus),
-                                  fit: BoxFit.cover,
-                                ),
-                                const SizedBox(width: 20),
-                                Expanded(
-                                    child: Text(
-                                  '${c.friendsList.value[index].username}',
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600),
-                                )),
-                                SvgPicture.asset(SvgIcon.option_icon,
-                                    height: 25, width: 25)
-                              ],
-                            ))))),
+                        data.length,
+                        (index) => GestureDetector(
+                              onTap: () {
+                                Get.to(() => Profile(
+                                      data: data[index],
+                                      isRoot: false,
+                                    ));
+                              },
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Image(
+                                    height: 60,
+                                    width: 60,
+                                    image: AssetImage(Picture.logo_Aplus),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  const SizedBox(width: 20),
+                                  Expanded(
+                                      child: Text(
+                                    '${data[index].username}',
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600),
+                                  )),
+                                  SvgPicture.asset(SvgIcon.option_icon,
+                                      height: 25, width: 25)
+                                ],
+                              ),
+                            )))),
           ],
         ));
   }

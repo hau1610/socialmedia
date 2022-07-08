@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -135,14 +136,13 @@ class HomePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               GestureDetector(
-                                onTap: () => Get.to(() => const Profile()),
-                                child: Image.network(
-                                  '$imageURL/${userInfo['avatar']}',
-                                  height: 50,
-                                  width: 50,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
+                                  onTap: () => Get.to(() => const Profile()),
+                                  child: CachedNetworkImage(
+                                    imageUrl: '$imageURL/${userInfo['avatar']}',
+                                    height: 50,
+                                    width: 50,
+                                    fit: BoxFit.contain,
+                                  )),
                               const SizedBox(width: 20),
                               Expanded(
                                   child: Container(

@@ -1,11 +1,14 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:socialapp/page/FriendList/index.dart';
+import 'package:socialapp/page/HomePage/index.dart';
 import 'package:socialapp/page/ImagePage/index.dart';
+import 'package:socialapp/page/Menu/controller.dart';
 import 'package:socialapp/page/MyPost/index.dart';
 import 'package:socialapp/page/Profile/index.dart';
 import 'package:socialapp/utils/svg.dart';
@@ -19,6 +22,7 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MenuController c = Get.put(MenuController());
     Map<String, dynamic> userInfo =
         json.decode(storage.getString(KEY.loginData.toString())!);
     return Scaffold(
@@ -41,12 +45,23 @@ class Menu extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.network(
-                    '$imageURL/${userInfo['avatar']}',
-                    height: 50,
-                    width: 50,
-                    fit: BoxFit.contain,
-                  ),
+                  CachedNetworkImage(
+                      imageUrl: '$imageURL/${userInfo['avatar']}',
+                      height: 50,
+                      width: 50,
+                      fit: BoxFit.contain,
+                      placeholder: (ctx, s) => const Image(
+                            image: AssetImage(Picture.noAvatar),
+                            height: 50,
+                            width: 50,
+                            fit: BoxFit.contain,
+                          ),
+                      errorWidget: (ctx, s, d) => const Image(
+                            image: AssetImage(Picture.noAvatar),
+                            height: 50,
+                            width: 50,
+                            fit: BoxFit.contain,
+                          )),
                   const SizedBox(width: 20),
                   Expanded(
                       child: Column(
@@ -108,7 +123,9 @@ class Menu extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => Get.to(FriendList()),
+                    onTap: () => Get.to(() => FriendList(
+                          data: c.friendsList.value,
+                        )),
                     child: Container(
                       decoration: BoxDecoration(
                           color: Colors.white,
