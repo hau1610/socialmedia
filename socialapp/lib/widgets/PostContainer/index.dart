@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:socialapp/commons.dart';
 import 'package:socialapp/global.dart';
 import 'package:socialapp/model/post_data.dart';
+import 'package:socialapp/page/EditPost/index.dart';
 import 'package:socialapp/page/HomePage/controller.dart';
 import 'package:socialapp/page/PostDetail/index.dart';
 import 'package:socialapp/utils/svg.dart';
@@ -87,6 +88,9 @@ class PostContainer extends StatelessWidget {
                           CustomDropdown<String>(
                             onTapItem: (value, index) {
                               if (index == 0) {
+                                Get.to(() => EditPost(
+                                      postData: data,
+                                    ));
                               } else {
                                 h.deletePost(data);
                                 if (isDetail) {

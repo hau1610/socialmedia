@@ -9,8 +9,8 @@ import 'package:socialapp/model/friend_data.dart';
 import 'package:socialapp/page/CreatePost/index.dart';
 import 'package:socialapp/page/FriendList/index.dart';
 import 'package:socialapp/page/HomePage/controller.dart';
-import 'package:socialapp/page/ImagePage/index.dart';
 import 'package:socialapp/page/Profile/controller.dart';
+import 'package:socialapp/page/UpdateProfile/index.dart';
 import 'package:socialapp/utils/svg.dart';
 import 'package:socialapp/widgets/PostContainer/index.dart';
 
@@ -48,13 +48,13 @@ class Profile extends StatelessWidget {
                   width: Get.width,
                   fit: BoxFit.contain,
                   placeholder: (ctx, s) => Image(
-                        image: AssetImage(Picture.noAvatar),
+                        image: const AssetImage(Picture.noAvatar),
                         height: 200,
                         width: Get.width,
                         fit: BoxFit.contain,
                       ),
                   errorWidget: (ctx, s, d) => Image(
-                        image: AssetImage(Picture.noAvatar),
+                        image: const AssetImage(Picture.noAvatar),
                         height: 200,
                         width: Get.width,
                         fit: BoxFit.contain,
@@ -92,24 +92,29 @@ class Profile extends StatelessWidget {
                   )),
             ),
             const SizedBox(height: 10),
-            Container(
-              height: 40,
-              decoration: BoxDecoration(
-                  color: Colors.red, borderRadius: BorderRadius.circular(10)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    SvgIcon.edit,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(width: 10),
-                  const Text('Chỉnh sửa trang cá nhân',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white))
-                ],
+            GestureDetector(
+              onTap: () {
+                Get.to(() => UpdateProfile());
+              },
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.red, borderRadius: BorderRadius.circular(10)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      SvgIcon.edit,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(width: 10),
+                    const Text('Chỉnh sửa trang cá nhân',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white))
+                  ],
+                ),
               ),
             ),
             Container(
@@ -160,23 +165,6 @@ class Profile extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                     ))
               ],
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              height: 30,
-              decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(10)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('Chỉnh sửa thông tin cá nhân',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.red))
-                ],
-              ),
             ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 20),

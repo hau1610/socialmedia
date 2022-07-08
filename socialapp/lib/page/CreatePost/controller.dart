@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:socialapp/commons.dart';
 import 'package:socialapp/global.dart';
 import 'package:socialapp/provider/post_provider.dart';
@@ -7,6 +8,7 @@ import 'package:socialapp/provider/post_provider.dart';
 class CreatePostController extends GetxController {
   late final RxBool showTextField;
   final VoidCallback? onCreateSuccess;
+  late final Rx<String> pathImage;
 
   late final FocusNode focusNode;
   late final TextEditingController controller;
@@ -20,6 +22,7 @@ class CreatePostController extends GetxController {
     postProvider = PostProvider();
     text = ''.obs;
     focusNode = FocusNode();
+    pathImage = RxString('');
 
     showTextField = false.obs;
     focusNode.addListener(() {
@@ -36,6 +39,14 @@ class CreatePostController extends GetxController {
 
   void onTextChange(String value) {
     text.value = value;
+  }
+
+  Future<void> showImagePicker(ImageSource source) async {
+    final ImagePicker _picker = ImagePicker();
+    final images = await _picker.pickImage(source: source);
+    if (images != null) {
+      pathImage(images.path);
+    }
   }
 
   Future<void> creatPost() async {
