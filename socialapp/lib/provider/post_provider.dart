@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
 import 'package:socialapp/commons.dart';
@@ -85,6 +86,18 @@ class PostProvider extends GetConnect {
       data.log('createPost');
       return false;
     }
+  }
+
+  Future<bool> upload(String pathImage) async {
+    var request =
+        http.MultipartRequest("POST", Uri.parse('$POST_API_URL/upload'));
+    var picture = await http.MultipartFile.fromPath("file", pathImage);
+    request.files.add(picture);
+
+    // http.StreamedResponse res = await request.send();
+    http.Response response =
+        await http.Response.fromStream(await request.send());
+    return response.statusCode == 200 ? true : false;
   }
 
   Future<bool> deletePost({required String postId}) async {

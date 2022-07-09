@@ -49,6 +49,14 @@ class CreatePostController extends GetxController {
     }
   }
 
+  Future<void> upload(String path) async {
+    bool res = await postProvider.upload(path);
+    print(res);
+    if (res) {
+      creatPost();
+    }
+  }
+
   Future<void> creatPost() async {
     final bool res = await postProvider.createPost(
         userId: storage.getString(KEY.idUser.toString())!, desc: text.value);

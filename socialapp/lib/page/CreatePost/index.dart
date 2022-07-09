@@ -173,7 +173,9 @@ class CreatePost extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: c.creatPost,
+                      onTap: () {
+                        c.creatPost();
+                      },
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 50),
                         height: 45,

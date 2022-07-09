@@ -31,7 +31,7 @@ class Profile extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          data?.username ?? userInfo['username'],
+          isRoot ? userInfo['username'] : data?.username ?? '',
         ),
       ),
       body: GetBuilder<HomePageController>(
@@ -42,44 +42,92 @@ class Profile extends StatelessWidget {
             ClipRRect(
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-              child: CachedNetworkImage(
-                  imageUrl: '$imageURL/${userInfo['background']}',
-                  height: 200,
-                  width: Get.width,
-                  fit: BoxFit.contain,
-                  placeholder: (ctx, s) => Image(
-                        image: const AssetImage(Picture.noAvatar),
-                        height: 200,
-                        width: Get.width,
-                        fit: BoxFit.contain,
-                      ),
-                  errorWidget: (ctx, s, d) => Image(
-                        image: const AssetImage(Picture.noAvatar),
-                        height: 200,
-                        width: Get.width,
-                        fit: BoxFit.contain,
-                      )),
+              child: isRoot
+                  ? CachedNetworkImage(
+                      imageUrl: '$imageURL/${userInfo['background']}',
+                      height: 200,
+                      width: Get.width,
+                      fit: BoxFit.contain,
+                      placeholder: (ctx, s) => Image(
+                            image: const AssetImage(Picture.noAvatar),
+                            height: 200,
+                            width: Get.width,
+                            fit: BoxFit.contain,
+                          ),
+                      errorWidget: (ctx, s, d) => Image(
+                            image: const AssetImage(Picture.noAvatar),
+                            height: 200,
+                            width: Get.width,
+                            fit: BoxFit.contain,
+                          ))
+                  : Obx(() => CachedNetworkImage(
+                      imageUrl: c.userInfo.value.background != null &&
+                              c.userInfo.value.background!.isNotEmpty
+                          ? '$imageURL/${c.userInfo.value.background}'
+                          : '$imageURL/${userInfo['background']}',
+                      height: 200,
+                      width: Get.width,
+                      fit: BoxFit.contain,
+                      placeholder: (ctx, s) => Image(
+                            image: const AssetImage(Picture.noAvatar),
+                            height: 200,
+                            width: Get.width,
+                            fit: BoxFit.contain,
+                          ),
+                      errorWidget: (ctx, s, d) => Image(
+                            image: const AssetImage(Picture.noAvatar),
+                            height: 200,
+                            width: Get.width,
+                            fit: BoxFit.contain,
+                          ))),
             ),
             Center(
               child: Baseline(
                 baseline: 100,
                 baselineType: TextBaseline.alphabetic,
-                child: CachedNetworkImage(
-                    imageUrl: '$imageURL/${userInfo['avatar']}',
-                    height: 160,
-                    width: 160,
-                    fit: BoxFit.contain,
-                    placeholder: (ctx, s) => const Image(
-                          image: AssetImage(Picture.noAvatar),
-                          height: 160,
-                          width: 160,
-                          fit: BoxFit.contain,
-                        ),
-                    errorWidget: (ctx, s, d) => const Image(
-                          image: AssetImage(Picture.noAvatar),
-                          height: 160,
-                          width: 160,
-                          fit: BoxFit.contain,
+                child: isRoot
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(80),
+                        child: CachedNetworkImage(
+                            imageUrl: '$imageURL/${userInfo['avatar']}',
+                            height: 160,
+                            width: 160,
+                            fit: BoxFit.contain,
+                            placeholder: (ctx, s) => const Image(
+                                  image: AssetImage(Picture.noAvatar),
+                                  height: 160,
+                                  width: 160,
+                                  fit: BoxFit.contain,
+                                ),
+                            errorWidget: (ctx, s, d) => const Image(
+                                  image: AssetImage(Picture.noAvatar),
+                                  height: 160,
+                                  width: 160,
+                                  fit: BoxFit.contain,
+                                )),
+                      )
+                    : Obx(() => ClipRRect(
+                          borderRadius: BorderRadius.circular(80),
+                          child: CachedNetworkImage(
+                              imageUrl: c.userInfo.value.avatar != null &&
+                                      c.userInfo.value.avatar!.isNotEmpty
+                                  ? '$imageURL/${c.userInfo.value.avatar}'
+                                  : '$imageURL/${userInfo['avatar']}',
+                              height: 160,
+                              width: 160,
+                              fit: BoxFit.contain,
+                              placeholder: (ctx, s) => const Image(
+                                    image: AssetImage(Picture.noAvatar),
+                                    height: 160,
+                                    width: 160,
+                                    fit: BoxFit.contain,
+                                  ),
+                              errorWidget: (ctx, s, d) => const Image(
+                                    image: AssetImage(Picture.noAvatar),
+                                    height: 160,
+                                    width: 160,
+                                    fit: BoxFit.contain,
+                                  )),
                         )),
               ),
             ),
@@ -94,7 +142,9 @@ class Profile extends StatelessWidget {
             const SizedBox(height: 10),
             GestureDetector(
               onTap: () {
-                Get.to(() => UpdateProfile());
+                Get.to(() => UpdateProfile(
+                      data: c.userInfo.value,
+                    ));
               },
               child: Container(
                 height: 40,
@@ -141,26 +191,14 @@ class Profile extends StatelessWidget {
             const SizedBox(height: 10),
             Row(
               children: [
-                SvgPicture.asset(SvgIcon.liveIcon, width: 20, height: 20),
-                const SizedBox(width: 10),
-                Obx(() => Text('Đến từ ${c.userInfo.value.from}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    )))
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
                 SvgPicture.asset(
                   SvgIcon.studyIcon,
                   width: 20,
                   height: 20,
                 ),
                 const SizedBox(width: 10),
-                const Text('Học tại',
-                    style: TextStyle(
+                Text('Học tại ${c.userInfo.value.from}',
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ))

@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:socialapp/commons.dart';
 import 'package:socialapp/global.dart';
 import 'package:socialapp/model/post_data.dart';
-import 'package:socialapp/page/EditPost/index.dart';
 import 'package:socialapp/page/HomePage/controller.dart';
 import 'package:socialapp/page/PostDetail/index.dart';
 import 'package:socialapp/utils/svg.dart';
@@ -50,23 +49,28 @@ class PostContainer extends StatelessWidget {
                       children: [
                         GestureDetector(
                             // onTap: () => Get.to(() => const Profile()),
-                            child: CachedNetworkImage(
-                                imageUrl: '$imageURL/${userInfo['avatar']}',
-                                height: 50,
-                                width: 50,
-                                fit: BoxFit.contain,
-                                placeholder: (ctx, s) => const Image(
-                                      image: AssetImage(Picture.noAvatar),
-                                      height: 50,
-                                      width: 50,
-                                      fit: BoxFit.contain,
-                                    ),
-                                errorWidget: (ctx, s, d) => const Image(
-                                      image: AssetImage(Picture.noAvatar),
-                                      height: 50,
-                                      width: 50,
-                                      fit: BoxFit.contain,
-                                    ))),
+                            child: ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child: CachedNetworkImage(
+                              imageUrl: data.user!.avatar!.isNotEmpty
+                                  ? '$imageURL/${data.user?.avatar}'
+                                  : '',
+                              height: 50,
+                              width: 50,
+                              fit: BoxFit.contain,
+                              placeholder: (ctx, s) => const Image(
+                                    image: AssetImage(Picture.noAvatar),
+                                    height: 50,
+                                    width: 50,
+                                    fit: BoxFit.contain,
+                                  ),
+                              errorWidget: (ctx, s, d) => const Image(
+                                    image: AssetImage(Picture.noAvatar),
+                                    height: 50,
+                                    width: 50,
+                                    fit: BoxFit.contain,
+                                  )),
+                        )),
                         const SizedBox(width: 20),
                         Expanded(
                             child: Column(
@@ -87,15 +91,9 @@ class PostContainer extends StatelessWidget {
                             data.userId)
                           CustomDropdown<String>(
                             onTapItem: (value, index) {
-                              if (index == 0) {
-                                Get.to(() => EditPost(
-                                      postData: data,
-                                    ));
-                              } else {
-                                h.deletePost(data);
-                                if (isDetail) {
-                                  Get.back();
-                                }
+                              h.deletePost(data);
+                              if (isDetail) {
+                                Get.back();
                               }
                             },
                             itemBuilder: (String data, int i) => Padding(
@@ -117,7 +115,7 @@ class PostContainer extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            items: const ['Sửa bài viết', 'Xóa bài viết'],
+                            items: const ['Xóa bài viết'],
                             child: SvgPicture.asset(SvgIcon.option_icon,
                                 height: 25, width: 25),
                           )

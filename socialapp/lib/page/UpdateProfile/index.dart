@@ -3,12 +3,16 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:socialapp/model/user_info.dart';
 import 'package:socialapp/utils/svg.dart';
 
 import '../../commons.dart';
 import '../../global.dart';
 
 class UpdateProfile extends StatelessWidget {
+  final UserInfo data;
+
+  const UpdateProfile({Key? key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> userInfo =
@@ -93,7 +97,23 @@ class UpdateProfile extends StatelessWidget {
                       height: 160,
                       fit: BoxFit.contain,
                     )),
-          )
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            'Chi tiết',
+            style: TextStyle(
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          Text('Sống tại ${data.city}',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              )),
+          Text('Học tại ${data.from}',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ))
         ],
       ),
     );
