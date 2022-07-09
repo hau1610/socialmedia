@@ -1,16 +1,44 @@
-# socialapp
+# Frontend Social Media App
 
-A new Flutter project.
+- [Introduction](#introduction)
+  - [About the app](#1-about-the-app)
+  - [Features](#2-features)
+- [Installation](#installation)
 
-## Getting Started
+ ## Introduction 
+ ### 1. About the app
+  - This is an social network app built using Flutter Framework.
+ ### 2. Features
+  - Register, Login, Logout
+  - View your timeline, user posts
+  - Like, comment
+  - View other profile
+  - View your profile
+  - Add, Remove friend
+  - Follow user
+  - Chat
+  - Upload post (can contain with image)
+  - Delete post
+  - Search profile
+  - Notification
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ ## Installation
+  - Clone from repository
+```
+https://github.com/hau1610/socialmedia
+```
+  - Install Flutter
+```
+https://flutter.dev
+```
+  - Install Android Studio & Create Simulator
+```
+https://developer.android.com
+```
+  - Open with VSCode
+  - Install package
+```
+flutter pub get
+```
+  - Open Android Studio Simulator
+  - Build project : Press F5 in any dart file to start building
