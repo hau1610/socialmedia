@@ -52,9 +52,11 @@ class PostContainer extends StatelessWidget {
                             child: ClipRRect(
                           borderRadius: BorderRadius.circular(25),
                           child: CachedNetworkImage(
-                              imageUrl: data.user!.avatar!.isNotEmpty
+                              imageUrl: data.user != null &&
+                                      data.user!.avatar != null &&
+                                      data.user!.avatar!.isNotEmpty
                                   ? '$imageURL/${data.user?.avatar}'
-                                  : '',
+                                  : '$imageURL/${userInfo['avatar']}',
                               height: 50,
                               width: 50,
                               fit: BoxFit.contain,

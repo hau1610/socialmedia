@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,9 +8,13 @@ import 'package:socialapp/page/HomePage/controller.dart';
 import 'package:socialapp/page/Profile/index.dart';
 import 'package:socialapp/utils/svg.dart';
 
+import '../../commons.dart';
+
 class FriendList extends StatelessWidget {
+  final bool isProfile;
   final List<FriendData> data;
-  const FriendList({Key? key, required this.data}) : super(key: key);
+  const FriendList({Key? key, required this.data, this.isProfile = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +23,14 @@ class FriendList extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           leading: GestureDetector(
-              onTap: () {
-                Get.back();
-                Get.to(() => Profile());
-              },
+              onTap: isProfile
+                  ? () {
+                      Get.back();
+                      Get.to(() => Profile());
+                    }
+                  : () {
+                      Get.back();
+                    },
               child: Icon(Icons.arrow_back, color: Colors.white)),
         ),
         body: Column(
@@ -75,11 +84,28 @@ class FriendList extends StatelessWidget {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const Image(
-                                    height: 60,
-                                    width: 60,
-                                    image: AssetImage(Picture.logo_Aplus),
-                                    fit: BoxFit.cover,
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: CachedNetworkImage(
+                                        imageUrl:
+                                            '$imageURL/${data[index].avatar}',
+                                        height: 50,
+                                        width: 50,
+                                        fit: BoxFit.contain,
+                                        placeholder: (ctx, s) => const Image(
+                                              image:
+                                                  AssetImage(Picture.noAvatar),
+                                              height: 50,
+                                              width: 50,
+                                              fit: BoxFit.contain,
+                                            ),
+                                        errorWidget: (ctx, s, d) => const Image(
+                                              image:
+                                                  AssetImage(Picture.noAvatar),
+                                              height: 50,
+                                              width: 50,
+                                              fit: BoxFit.contain,
+                                            )),
                                   ),
                                   const SizedBox(width: 20),
                                   Expanded(

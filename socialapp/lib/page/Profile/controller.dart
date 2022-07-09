@@ -26,7 +26,7 @@ class ProfileController extends GetxController {
     super.onInit();
   }
 
-  void onReload() {
+  Future<void> onReload() async {
     getUserInfo(friendData?.sId ?? '');
     getMyPosts(friendData?.username ?? '');
     getListFriends(friendData?.sId ?? '');

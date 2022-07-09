@@ -127,7 +127,7 @@ class PostProvider extends GetConnect {
     }
   }
 
-  Future<bool> updateProfile(String userId, String city, String from) async {
+  Future<bool> updateProfile(String? userId, String? city, String? from) async {
     final Map<String, dynamic> params =
         {'userId': userId, 'city': city, 'from': from}.json;
     final Response data = await put('$USER_API_URL/user/$userId', params);

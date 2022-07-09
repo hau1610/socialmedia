@@ -126,6 +126,7 @@ class Menu extends StatelessWidget {
                   GestureDetector(
                     onTap: () => Get.to(() => FriendList(
                           data: c.friendsList.value,
+                          isProfile: false,
                         )),
                     child: Container(
                       decoration: BoxDecoration(

@@ -20,7 +20,8 @@ class UpdateProfile extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    UpdateProfileController c = Get.put(UpdateProfileController(data: data));
+    UpdateProfileController c = Get.put(
+        UpdateProfileController(data: data, onCreateSuccess: onCreateSuccess));
     final Map<String, dynamic> userInfo =
         json.decode(storage.getString(KEY.loginData.toString())!);
     return Scaffold(
@@ -68,10 +69,24 @@ class UpdateProfile extends StatelessWidget {
                     )),
           ),
           const SizedBox(height: 20),
-          const Text(
-            'Ảnh bìa',
-            style: TextStyle(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              Text(
+                'Ảnh bìa',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                'Chỉnh sửa',
+                style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
           const SizedBox(height: 10),
           Center(
@@ -171,21 +186,24 @@ class UpdateProfile extends StatelessWidget {
                 ),
               )),
           const SizedBox(height: 30),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 50),
-            height: 45,
-            width: 250,
-            decoration: BoxDecoration(
-                color: Colors.red, borderRadius: BorderRadius.circular(10)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text('Cập nhật',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white)),
-              ],
+          GestureDetector(
+            onTap: c.updateProfile,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 50),
+              height: 45,
+              width: 250,
+              decoration: BoxDecoration(
+                  color: Colors.red, borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text('Cập nhật',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white)),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 30)

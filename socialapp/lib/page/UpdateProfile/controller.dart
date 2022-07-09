@@ -54,7 +54,9 @@ class UpdateProfileController extends GetxController {
 
   Future<void> updateProfile() async {
     final bool res = await postProvider.updateProfile(
-        storage.getString(KEY.idUser.toString())!, text1.value, text2.value);
+        storage.getString(KEY.idUser.toString())!,
+        text1.value.isNotEmpty ? text1.value : null,
+        text2.value.isNotEmpty ? text2.value : null);
     if (res) {
       onCreateSuccess?.call();
       Get.back();
