@@ -137,11 +137,15 @@ class HomePage extends StatelessWidget {
                             children: [
                               GestureDetector(
                                   onTap: () => Get.to(() => const Profile()),
-                                  child: CachedNetworkImage(
-                                    imageUrl: '$imageURL/${userInfo['avatar']}',
-                                    height: 50,
-                                    width: 50,
-                                    fit: BoxFit.contain,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(25),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          '$imageURL/${userInfo['avatar']}',
+                                      height: 50,
+                                      width: 50,
+                                      fit: BoxFit.contain,
+                                    ),
                                   )),
                               const SizedBox(width: 20),
                               Expanded(

@@ -22,10 +22,14 @@ class ProfileController extends GetxController {
     friendProvider = FriendProvider();
     _postProvider = PostProvider();
     listPost = Rx<List<PostData>>([]);
+    onReload();
+    super.onInit();
+  }
+
+  void onReload() {
     getUserInfo(friendData?.sId ?? '');
     getMyPosts(friendData?.username ?? '');
     getListFriends(friendData?.sId ?? '');
-    super.onInit();
   }
 
   Future<void> getListFriends(String userId) async {

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:socialapp/page/FriendList/index.dart';
-import 'package:socialapp/page/ImagePage/index.dart';
 import 'package:socialapp/page/Menu/controller.dart';
 import 'package:socialapp/page/MyPost/index.dart';
 import 'package:socialapp/page/Profile/index.dart';
@@ -44,23 +43,26 @@ class Menu extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CachedNetworkImage(
-                      imageUrl: '$imageURL/${userInfo['avatar']}',
-                      height: 50,
-                      width: 50,
-                      fit: BoxFit.contain,
-                      placeholder: (ctx, s) => const Image(
-                            image: AssetImage(Picture.noAvatar),
-                            height: 50,
-                            width: 50,
-                            fit: BoxFit.contain,
-                          ),
-                      errorWidget: (ctx, s, d) => const Image(
-                            image: AssetImage(Picture.noAvatar),
-                            height: 50,
-                            width: 50,
-                            fit: BoxFit.contain,
-                          )),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
+                    child: CachedNetworkImage(
+                        imageUrl: '$imageURL/${userInfo['avatar']}',
+                        height: 50,
+                        width: 50,
+                        fit: BoxFit.contain,
+                        placeholder: (ctx, s) => const Image(
+                              image: AssetImage(Picture.noAvatar),
+                              height: 50,
+                              width: 50,
+                              fit: BoxFit.contain,
+                            ),
+                        errorWidget: (ctx, s, d) => const Image(
+                              image: AssetImage(Picture.noAvatar),
+                              height: 50,
+                              width: 50,
+                              fit: BoxFit.contain,
+                            )),
+                  ),
                   const SizedBox(width: 20),
                   Expanded(
                       child: Column(

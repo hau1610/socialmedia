@@ -46,8 +46,7 @@ class Profile extends StatelessWidget {
                   ? CachedNetworkImage(
                       imageUrl: '$imageURL/${userInfo['background']}',
                       height: 200,
-                      width: Get.width,
-                      fit: BoxFit.contain,
+                      fit: BoxFit.fitWidth,
                       placeholder: (ctx, s) => Image(
                             image: const AssetImage(Picture.noAvatar),
                             height: 200,
@@ -144,6 +143,7 @@ class Profile extends StatelessWidget {
               onTap: () {
                 Get.to(() => UpdateProfile(
                       data: c.userInfo.value,
+                      onCreateSuccess: c.onReload,
                     ));
               },
               child: Container(
@@ -197,11 +197,11 @@ class Profile extends StatelessWidget {
                   height: 20,
                 ),
                 const SizedBox(width: 10),
-                Text('Học tại ${c.userInfo.value.from}',
+                Obx(() => Text('Học tại ${c.userInfo.value.from}',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
-                    ))
+                    )))
               ],
             ),
             Container(
@@ -243,10 +243,30 @@ class Profile extends StatelessWidget {
                               (index) => Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Expanded(
-                                          child: Image(
-                                              image: AssetImage(
-                                                  Picture.logo_Aplus))),
+                                      Obx(() => CachedNetworkImage(
+                                          imageUrl: c.friendsList.value[index]
+                                                          .avatar !=
+                                                      null &&
+                                                  c.userInfo.value.avatar!
+                                                      .isNotEmpty
+                                              ? '$imageURL/${c.userInfo.value.avatar}'
+                                              : '$imageURL/${userInfo['avatar']}',
+                                          fit: BoxFit.contain,
+                                          height: 80,
+                                          width: 80,
+                                          placeholder: (ctx, s) => const Image(
+                                                image: AssetImage(
+                                                    Picture.noAvatar),
+                                                fit: BoxFit.contain,
+                                              ),
+                                          errorWidget: (ctx, s, d) =>
+                                              const Image(
+                                                image: AssetImage(
+                                                    Picture.noAvatar),
+                                                height: 80,
+                                                width: 80,
+                                                fit: BoxFit.contain,
+                                              ))),
                                       const SizedBox(height: 3),
                                       Text(
                                           c.friendsList.value[index].username ??
